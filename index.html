@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul class="flex-column">
+                <li class="nav-link clock-link"><a href="#clock">Clock</a></li>
+                <li class="nav-link stopwatch-link"><a href="#stopwatch">Stopwatch</a></li>
+                <li class="nav-link timer-link"><a href="#timer">Timer</a></li>
+            </ul>
+        </nav>
+
+        <div class="page clock" id="clock"></div>
+        <div class="page stopwatch" id="stopwatch">
+            <div><span id="minutes-stopwatch">00</span>:<span id="seconds-stopwatch">00</span></div>
+            <div>
+                <button class="start">Start</button>
+                <button class="stop">Stop</button>
+                <button class="reset">Reset</button>
+            </div>
+        </div>
+        <div class="page timer" id="timer">
+            <div class="flex-column">
+                <form>
+                    <label for="minutes-input">Minutes</label>
+                    <input type="number" min=0 max="59" id="minutes-input">
+                    <label for="seconds-input">Seconds</label>
+                    <input type="number" min=0 max="59" id="seconds-input">
+
+                    <button type="submit">Start</button>
+                </form>
+                <div><span id="minutes-counter">00</span id=seconds-counter>:<span>00</span></div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script src="script.js"></script>
+</body>
+</html>

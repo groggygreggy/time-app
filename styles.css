@@ -1,0 +1,88 @@
+/* document and overall*/
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    font-size: 62.5%;
+}
+
+.page{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    width: 100vw;
+    height: 100vh;
+    padding-right: 20px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* scroll snap and nav bar */
+.container > div{
+    scroll-snap-align: start;
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+    height: 100vh;
+    padding-left: 30px;
+    position: fixed;
+}
+
+li{
+    list-style: none;
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+/* clock */
+
+.clock{
+    background-color: rgba(245, 114, 0, 1);
+    color: white;
+    font-size: 7rem;
+}
+
+.clock::before, .stopwatch::before, .timer::before{
+    content: "";
+}
+
+/* stopwatch */
+.stopwatch{
+    background-color: rgba(212, 224, 155, 1);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#stopwatch > *{
+    font-size: 10rem;
+}
+
+/* timer */
+.timer{
+    background-color: rgba(48, 131, 220, 1);
+}
+
+input, button{
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+}
+
+label{
+    font-size: 2rem;
+}
