@@ -28,60 +28,82 @@ pages.forEach(page => {
 const clock = document.querySelector('.clock');
 const h1 = document.createElement('h1');
 clock.appendChild(h1);
+var hour;
+var minute;
+var second;
+var ampm;
+
 const time = () => {
     const date = new Date();
-    h1.innerText = `${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`;
+    //hour formatting
+    if (date.getHours() === 0){
+        hour = 12;
+    } else if(date.getHours() > 12){
+        hour = date.getHours() - 12;
+    }
+
+    //minutes formatting
+    if (date.getMinutes().toString().length == 1){
+        minute = `0${date.getMinutes()}`;
+    } else{
+        minute = date.getMinutes();
+    }
+
+    //seconds formatting
+    if (date.getSeconds().toString().length == 1){
+        second = `0${date.getSeconds()}`;
+    } else{
+        second = date.getSeconds();
+    }
+
+    //am/pm formatting
+    if(date.getHours() > 12){
+        ampm = "PM";
+    } else{
+        ampm = "AM";
+    }
+
+    h1.innerText = `${hour} : ${minute} : ${second} ${ampm}`;
 }
 
 setInterval(time, 1000);
 
 //stopwatch page
-const minutesStopwatch = document.querySelector('#minutes-stopwatch');
-const secondsStopwatch = document.querySelector('#seconds-stopwatch');
+const stopwatchNumber = document.querySelector('#stopwatch-number');
 const start = document.querySelector('.start');
-const stop = document.querySelector('.stop');
 const reset = document.querySelector('.reset');
-var int;
 
-start.addEventListener(('click'), () => {
-    var minutes = "00";
-    var seconds= "00";
-    
-    const callback = () => {
-        seconds++;
+var paused = true;
+var currentTime;
+var elapsedTime = 0;
 
-        if(seconds < 10){
-            seconds = '0' + seconds;
-        }
-
-        if (seconds > 59){
-            seconds = 0;
-            minutes++;
-        }
-
-        if (minutes < 10 && seconds === 0){
-            minutes = '0' + minutes;
-            seconds = "00";
-        }
-
-        minutesStopwatch.innerText = minutes;
-        secondsStopwatch.innerText = seconds;
-
+const counting = () => {
+    if(!paused){
+        var counter = elapsedTime + (new Date()).getTime() - currentTime.getTime();
+        stopwatchNumber.innerHTML = `${Math.floor(counter / 1000)}s ${counter % 1000}`;
     }
-    const counter = setInterval(callback, 1000);
-    start.disabled = true;
+};
 
-    //NOT SURE WHY THE STOP VARIABLE IS NOT EXISTING HUHHHHHHHH
+start.addEventListener(('click'), (e) => {
+    e.preventDefault();
+    paused = !paused;
+    if (!paused){ 
+        start.innerHTML = "Stop";
+        currentTime = new Date();
+        const starting = setInterval(counting, 100);
+    } else{ 
+        start.innerHTML = "Resume";
+        elapsedTime += (new Date()).getTime() - currentTime.getTime(); 
+    }
+})
 
-    reset.addEventListener(('click'), () => {
-        clearInterval(counter);
-        var minutes = "00";
-        var seconds = "00";
-        minutesStopwatch.innerText = minutes;
-        secondsStopwatch.innerText = seconds;
-        start.disabled = false; 
-    });
-});
+reset.addEventListener(('click'), (e) => {
+    e.preventDefault();
+    stopwatchNumber.innerHTML = '0s 000';
+    paused = true;
+    start.innerHTML = "Start";
+    elapsedTime = 0;
+})
 
 //timer page
 
@@ -93,5 +115,4 @@ const form = document.querySelector('form');
 
 form.addEventListener(('submit'), (e) => {
     e.preventDefault();
-
 });
